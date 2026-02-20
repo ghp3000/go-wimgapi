@@ -12,8 +12,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"go-wimgapi/wimgapi"
-
+	"github.com/ghp3000/go-wimgapi/wimgapi"
 	"golang.org/x/sys/windows"
 )
 

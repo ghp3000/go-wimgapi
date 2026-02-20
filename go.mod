@@ -1,4 +1,4 @@
-module go-wimgapi
+module github.com/ghp3000/go-wimgapi
 
 go 1.24.1
 
