@@ -6,8 +6,6 @@ import (
 	"encoding/xml"
 	"strings"
 	"unsafe"
-
-	"go-wimgapi/internal/syscallx"
 )
 
 type imageInfoXML struct {
@@ -61,8 +59,8 @@ func (i *Image) Info() (ImageInfo, error) {
 	}
 	defer tryFreeMemory(p)
 
-	raw := syscallx.BytesFromPointer(p, size)
-	xmlText := strings.TrimSpace(syscallx.DecodeUTF16Bytes(raw))
+	raw := BytesFromPointer(p, size)
+	xmlText := strings.TrimSpace(DecodeUTF16Bytes(raw))
 	if xmlText == "" {
 		return ImageInfo{}, nil
 	}

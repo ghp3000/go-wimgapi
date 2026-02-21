@@ -5,7 +5,6 @@ package wimgapi
 import (
 	"unsafe"
 
-	"go-wimgapi/internal/syscallx"
 	"golang.org/x/sys/windows"
 )
 
@@ -31,7 +30,7 @@ func Open(path string, opts OpenOptions) (*File, error) {
 	)
 
 	h := windows.Handle(r1)
-	if syscallx.IsInvalidHandle(h) {
+	if IsInvalidHandle(h) {
 		code := codeFromCallErr(callErr)
 		if code == 0 {
 			code = lastErrorCode()
@@ -80,7 +79,7 @@ func (f *File) LoadImage(index int) (*Image, error) {
 
 	r1, _, callErr := procWIMLoadImage.Call(uintptr(f.handle), uintptr(uint32(index)))
 	h := windows.Handle(r1)
-	if syscallx.IsInvalidHandle(h) {
+	if IsInvalidHandle(h) {
 		code := codeFromCallErr(callErr)
 		if code == 0 {
 			code = lastErrorCode()
@@ -147,7 +146,7 @@ func (f *File) Capture(path string, opts CaptureOptions) (*Image, error) {
 		uintptr(opts.Flags),
 	)
 	h := windows.Handle(r1)
-	if syscallx.IsInvalidHandle(h) {
+	if IsInvalidHandle(h) {
 		code := codeFromCallErr(callErr)
 		if code == 0 {
 			code = lastErrorCode()
